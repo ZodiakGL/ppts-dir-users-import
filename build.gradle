@@ -1,0 +1,126 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'java-test-fixtures'
+    id 'maven-publish'
+    id 'org.springframework.boot' version "${springBoot}" apply(false)
+    id 'io.spring.dependency-management' version "${dependencyManagement}"
+    id 'nu.studer.credentials' version "${credentials}"
+}
+
+group = 'ru.sfera.users'
+
+
+var devAccountUser = credentials.forKey('nexusUser')
+var devAccountPassword = credentials.forKey('nexusUserPassword')
+var publishRepo = version.endsWith('-SNAPSHOT') && project.hasProperty("mavenProxySnapshotUrl")
+    ? project.property("mavenProxySnapshotUrl")
+    : project.hasProperty("mavenProxyReleaseUrl") ? project.property("mavenProxyReleaseUrl") : null
+var repos = [
+    "https://sfera-t1.ru/app/ppbd-proxy/api/repository/SFR_PPALM-maven-proxy-group",
+    "https://sfera-t1.ru/app/ppbd-maven/api/repository/SFR_COMMON-maven-group",
+    "https://sfera-t1.ru/app/ppbd-maven/api/repository/SFR_PPCPS-maven-lib/",
+    "https://sfera-t1.ru/app/ppbd-maven/api/repository/SFR_PPCPS-maven-group/"
+]
+
+repositories {
+    if (project.hasProperty("mavenProxyRepositories")) {
+        mavenLocal()
+        project.property("mavenProxyRepositories").toString().tokenize(';').each { repo ->
+            maven {
+                url repo
+
+                credentials {
+                    username project.property("mavenProxyUser").toString()
+                    password project.property("mavenProxyPassword").toString()
+                }
+            }
+        }
+    } else {
+        mavenLocal()
+        repos.each { repo ->
+            println("Configuring repository: ${repo}")
+            maven {
+                url(repo)
+                credentials {
+                    username devAccountUser
+                    password devAccountPassword
+                }
+            }
+        }
+        mavenCentral()
+    }
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            versionMapping {
+                usage('java-api') { fromResolutionOf('runtimeClasspath') }
+                usage('java-runtime') { fromResolutionResult() }
+            }
+        }
+    }
+    repositories {
+        if (publishRepo != null) {
+            maven {
+                url = publishRepo
+                credentials {
+                    username project.property("mavenProxyUser").toString()
+                    password project.property("mavenProxyPassword").toString()
+                }
+            }
+        } else {
+            mavenLocal()
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.boot:spring-boot-dependencies:${springBoot}")
+    }
+}
+
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter-data-jdbc:${springBoot}"
+    implementation "org.springframework.boot:spring-boot-starter-webflux:${springBoot}"
+    implementation "org.springframework.boot:spring-boot-starter-validation:${springBoot}"
+
+    compileOnly "org.projectlombok:lombok:${lombok}"
+    implementation "org.mapstruct:mapstruct:${mapstruct}"
+    annotationProcessor "org.projectlombok:lombok:${lombok}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct}"
+
+    implementation "org.springframework.boot:spring-boot-starter-oauth2-client:${springBoot}"
+    implementation "org.springframework.security:spring-security-oauth2-client:${springSecurity}"
+
+    implementation "com.google.guava:guava:${guava}"
+
+    implementation "net.javacrumbs.shedlock:shedlock-spring:${shedlock}"
+    implementation "net.javacrumbs.shedlock:shedlock-provider-jdbc-template:${shedlock}"
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation "org.testcontainers:junit-jupiter"
+    testImplementation "org.testcontainers:testcontainers"
+    testImplementation "org.testcontainers:postgresql"
+    testImplementation "org.postgresql:postgresql:${postgresql}"
+    testImplementation "org.wiremock:wiremock-standalone:${wiremock}"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+java {
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.add("-parameters")
+}

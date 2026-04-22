@@ -1,0 +1,75 @@
+{
+  "content": [
+    {
+      "upn": "dzhalnin",
+      "firstName": "Дмитрий",
+      "lastName": "Жалнин",
+      "middleName": null,
+      "displayName": "dzhalnin",
+      "email": "dzhalnin@nota.tech"
+    },
+    {
+      "upn": "adembitskaya",
+      "firstName": "Анастасия",
+      "lastName": "Дембицкая",
+      "middleName": null,
+      "displayName": "ADembitskaya",
+      "email": "ADembitskaya@nota.tech"
+    },
+    {
+      "upn": "vdranitsyna",
+      "firstName": "Вероника",
+      "lastName": "Драницына",
+      "middleName": null,
+      "displayName": "VDranitsyna",
+      "email": "VDranitsyna@nota.tech"
+    },
+    {
+      "upn": "i.matasov",
+      "firstName": "Иван",
+      "lastName": "Матасов",
+      "middleName": null,
+      "displayName": "i.matasov",
+      "email": "i.matasov@nota.tech"
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 4,
+    "sort": [
+      {
+        "direction": "ASC",
+        "property": "upn",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "ascending": true,
+        "descending": false
+      }
+    ],
+    "offset": 0,
+    "unpaged": false,
+    "paged": true
+  },
+  "id": "dfb300c1-2416-4ed8-96b5-a729ec3bc618",
+  "code": "pprcProcessManager",
+  "title": "PPRC Process Manager",
+  "systemCode": "PPRC",
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 4,
+  "sort": [
+    {
+      "direction": "ASC",
+      "property": "upn",
+      "ignoreCase": false,
+      "nullHandling": "NATIVE",
+      "ascending": true,
+      "descending": false
+    }
+  ],
+  "first": true,
+  "size": 5,
+  "number": 0,
+  "numberOfElements": 4,
+  "empty": false
+}

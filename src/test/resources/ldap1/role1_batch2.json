@@ -1,0 +1,59 @@
+{
+  "content": [
+    {
+      "upn": "aslebedev_tk",
+      "firstName": "Александр",
+      "lastName": "Лебедев",
+      "middleName": null,
+      "displayName": "aslebedev_tk",
+      "email": null
+    },
+    {
+      "upn": "vmorozov_tk",
+      "firstName": "Vyacheslav",
+      "lastName": "Morozov",
+      "middleName": null,
+      "displayName": "vmorozov_tk",
+      "email": null
+    }
+  ],
+  "pageable": {
+    "pageNumber": 1,
+    "pageSize": 3,
+    "sort": [
+      {
+        "direction": "ASC",
+        "property": "upn",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "ascending": true,
+        "descending": false
+      }
+    ],
+    "offset": 5,
+    "unpaged": false,
+    "paged": true
+  },
+  "id": "dce515db-8b66-4480-b2fd-5266e5b54229",
+  "code": "pprcTest",
+  "title": "pprcTest",
+  "systemCode": "PPRC",
+  "last": true,
+  "totalPages": 2,
+  "totalElements": 5,
+  "sort": [
+    {
+      "direction": "ASC",
+      "property": "upn",
+      "ignoreCase": false,
+      "nullHandling": "NATIVE",
+      "ascending": true,
+      "descending": false
+    }
+  ],
+  "first": true,
+  "size": 3,
+  "number": 1,
+  "numberOfElements": 5,
+  "empty": false
+}

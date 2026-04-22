@@ -1,0 +1,67 @@
+{
+  "content": [
+    {
+      "upn": "pppl_test",
+      "firstName": "pppl_test",
+      "lastName": "pppl_test",
+      "middleName": null,
+      "displayName": "pppl_test",
+      "email": null
+    },
+    {
+      "upn": "ikuzovlev_tk",
+      "firstName": "Иван",
+      "lastName": "Кузовлев",
+      "middleName": null,
+      "displayName": "ikuzovlev_tk",
+      "email": null
+    },
+    {
+      "upn": "rbeskrovnyy_tk",
+      "firstName": "Roman",
+      "lastName": "Beskrovnyy",
+      "middleName": null,
+      "displayName": "rbeskrovnyy_tk",
+      "email": null
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 3,
+    "sort": [
+      {
+        "direction": "ASC",
+        "property": "upn",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "ascending": true,
+        "descending": false
+      }
+    ],
+    "offset": 0,
+    "unpaged": false,
+    "paged": true
+  },
+  "id": "dce515db-8b66-4480-b2fd-5266e5b54229",
+  "code": "pprcTest",
+  "title": "pprcTest",
+  "systemCode": "PPRC",
+  "last": false,
+  "totalPages": 2,
+  "totalElements": 5,
+  "sort": [
+    {
+      "direction": "ASC",
+      "property": "upn",
+      "ignoreCase": false,
+      "nullHandling": "NATIVE",
+      "ascending": true,
+      "descending": false
+    }
+  ],
+  "first": true,
+  "size": 3,
+  "number": 0,
+  "numberOfElements": 5,
+  "empty": false
+}

@@ -1,0 +1,105 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        default_schema: sys1
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/app?currentSchema=sys1
+    username: core
+    password: core
+  security:
+    oauth2:
+      client:
+        registration:
+          sfera-auth-profile:
+            client-id: local_client_id
+            client-secret: local_client_secret
+            authorization-grant-type: password
+            client-authentication-method: client_secret_post
+            scope: openid
+        provider:
+          sfera-auth-profile:
+            token-uri: http://localhost:8091/api/auth/openid-connect/token
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+
+sfera:
+  import:
+    users:
+      enabled: true
+      system-code: SYS1
+      scheduler:
+        enabled: false
+        fixed-delay: PT30M
+        initial-delay: PT15S
+      ignore-users: sfera_tech_user
+      mark-users-as-inactive: true
+      delete-user-roles: true
+      user-iteration-part: 10
+      table-mapping:
+        colors-table: sys1.palette_colors
+        users-table: sys1.users
+      web-clients:
+        debug: false
+        sslEnabled: false
+        connection-timeout: 3000
+        response-timeout: 45000
+        get-users-for-group-endpoint: /api/v1/public/groups/users/search
+      dir:
+        - enabled: true
+          connection:
+            username: tech_tk
+            password: Qwerty123
+            url: http://localhost:8091
+            authProfile: sfera-auth-profile
+          imports:
+            page-size: 3
+            retryMaxAttempts: 5
+            retryMinBackOffMillis: 500
+            roles:
+              - name: ROLE_1
+                priority: 1
+                dirGroups:
+                  - dir1Sys1Role1
+              - name: ROLE_2
+                priority: 1
+                dirGroups:
+                  - dir1Sys1Role2
+        - enabled: true
+          connection:
+            username: tech_tk
+            password: Qwerty123
+            url: http://localhost:8092
+            authProfile: sfera-auth-profile
+          imports:
+            page-size: 5
+            retryMaxAttempts: 5
+            retryMinBackOffMillis: 500
+            roles:
+              - name: ROLE_1
+                priority: 1
+                dirGroups:
+                  - dir2Sys1Role1
+              - name: ROLE_3
+                priority: 1
+                dirGroups:
+                  - dir2Sys1Role2
+        - enabled: false
+          connection:
+            username: tech_tk
+            password: Qwerty123
+            url: http://localhost:8093
+            authProfile: sfera-auth-profile
+          imports:
+            page-size: 5
+            retryMaxAttempts: 5
+            retryMinBackOffMillis: 500
+            roles:
+              - name: ROLE_1
+                priority: 1
+                dirGroups:
+                  - dir3Sys1Role1
